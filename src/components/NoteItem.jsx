@@ -1,16 +1,17 @@
 import React from 'react'
 
 function NoteItem({ note , onDelete}) {
-  const { text, date } = note
+  const { title, text, date } = note
   const formattedDate = new Date(date).toLocaleString()
 
   return (
     <div className="note">
+      {title && <h3>{title}</h3>} 
       <p>{text}</p>
-    <div className= "note-footer">
-      <small>{formattedDate}</small>
-      <button className="delete-button" onClick ={onDelete}>x</button>
-    </div>
+      <div className= "note-footer">
+        <small>{formattedDate}</small>
+        <button className="delete-button" onClick ={onDelete}>x</button>
+      </div>
     </div>
   )
 }

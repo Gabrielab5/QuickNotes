@@ -6,8 +6,8 @@ import './App.css'
 function App() {
   const [notes, setNotes] = useState([])
 
-  const addNote = (text) => {
-    const newNote = {id: Date.now(), text, date: new Date(), }
+  const addNote = (text, title) => {
+    const newNote = {id: Date.now(), title, text, date: new Date(), }
     setNotes([...notes, newNote])
   }
 

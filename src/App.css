@@ -20,11 +20,10 @@ h1 {
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #eec8fb;
-   justify-content: center;
+  justify-content: center;
 }
 
 .note-form textarea {
-  width:97%;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -86,10 +85,22 @@ h1 {
   background-color: transparent;
   align-self: self-end;
   border-radius: 50%;
-   cursor: pointer;
+  cursor: pointer;
   font-size: 14px;
 }
 
 .delete-button:hover{
   background-color: rgb(141, 246, 102);
+}
+
+.note-title-input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.note h3 {
+  margin: 0 0 10px 0
 }
