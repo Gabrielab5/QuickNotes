@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import NoteForm from './components/NoteForm'
 import NoteItem from './components/NoteItem'
+import NoteModal from './components/NoteModal'
 import './App.css'
-import { Modal } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 
 function App() {
@@ -35,25 +35,17 @@ function App() {
           <NoteItem key={note.id} note={note} onDelete= { () => deleteNote(note.id)} onNoteClick={() => handleNoteClick(note)}/>
         ))}
       </div>
-
-       <Modal 
-          opened={opened} 
-          onClose={close} 
-          size="lg"
-          centered
-          className= "modal"
-        >
-        {selectedNote && (
-          <div>
-            <p>{selectedNote.title}</p>
-            <p>{selectedNote.text}</p>
-            <small>Created: {new Date(selectedNote.date).toLocaleString()}</small>
-          </div>
-        )}
-      </Modal>
-    </div>
-
-    
+      <NoteModal 
+        opened={opened}
+        onClose={close}
+        note={selectedNote}
+        classNames={{
+          modal: 'custom-modal', 
+          header: 'custom-modal-header',
+          body: 'custom-modal-body',
+        }}
+      />
+    </div>    
   )
 }
 
