@@ -1,21 +1,28 @@
 import React, { useState} from "react"
 import TextareaAutosize from 'react-textarea-autosize';
 
-function NoteForm( {addNote}) {
-    const [noteText, setNoteText ] = useState('')
-    const [noteTitle, setNoteTitle] = useState('');
+function NoteForm( {addNote, initialNote, onUpdateNote, onClose }) {
+    const [noteText, setNoteText ] = useState(initialNote ? initialNote.text : '')
+    const [noteTitle, setNoteTitle] = useState(initialNote ? initialNote.title : '');
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if(noteText.trim() || noteTitle.trim()) {
+
+        if(initialNote){
+            onUpdateNote({...initialNote, title: noteTitle, text:noteText, updatedDate: new Date(),})
+        } else if(noteText.trim() || noteTitle.trim()) {
             addNote(noteText, noteTitle)
-            setNoteText('')
-            setNoteTitle('')
+        }
+           // Clear the form fields after submission only for new notes
+        if (!initialNote) {
+            setNoteTitle('');
+            setNoteText('');
         }
     }
 
     return (
         <form onSubmit={handleSubmit} className="note-form">
+        {initialNote && <button className="close-form-button" onClick={onClose}>&times;</button>}
             <input
                 type="text"
                 placeholder="Title"
@@ -30,7 +37,7 @@ function NoteForm( {addNote}) {
                 onChange = { (e) => setNoteText(e.target.value)}
                 minRows = {5}
             />
-            <button type="submit">Add </button>
+            <button type="submit">{initialNote ? 'Update Note' : 'Add Note'} </button>
         </form>
     )
 }

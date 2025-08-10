@@ -15,6 +15,13 @@ function App() {
     setNotes([...notes, newNote])
   }
 
+  const updateNote = (updatedNote) => {
+    setNotes(notes.map(note =>
+      note.id === updatedNote.id ? updatedNote : note
+    ));
+    close(); 
+  };
+
   const deleteNote = (noteId) => {
     if (window.confirm('Are you sure you want to delete this note?')) {
       setNotes(notes.filter((note => note.id !== noteId)))
@@ -40,10 +47,14 @@ function App() {
         onClose={close}
         note={selectedNote}
         classNames={{
-          modal: 'custom-modal', 
-          header: 'custom-modal-header',
+          modal: 'custom-modal-wrapper',
           body: 'custom-modal-body',
         }}
+        formComponent={
+          selectedNote && (
+            <NoteForm key={selectedNote.id} initialNote={selectedNote} onUpdateNote={updateNote} onClose={close}/>
+          )
+        }
       />
     </div>    
   )

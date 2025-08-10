@@ -1,22 +1,21 @@
 import React from 'react';
 import { Modal } from '@mantine/core';
 
-function NoteModal({ opened, onClose, note, classNames }) {
+function NoteModal({ opened, onClose, note, formComponent , classNames}) {
   if (!note) return null; 
 
   return (
     <Modal
       opened={opened}
       onClose={onClose}
-      title={note.title || "Note"}
+      title={null}
       size="lg"
       centered
       classNames={classNames}
+      padding= {0}
+      withCloseButton={false}
     >
-      <div>
-        <p>{note.text}</p>
-        <small>Created: {new Date(note.date).toLocaleString()}</small>
-      </div>
+     {formComponent}
     </Modal>
   );
 }

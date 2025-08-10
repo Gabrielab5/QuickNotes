@@ -109,20 +109,21 @@ h1 {
   resize:  none;
 }
 
-.custom-modal.mantine-Modal-modal{
-  border: 2px solid #333; 
-  border-radius: 12px; 
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
-  background-color: #cdfab6;
+.custom-modal-wrapper {
+  padding: 0;
+  border-radius: 8px;
+  overflow: hidden; 
+  border: 1px solid #ccc;
+  background-color: #eec8fb;
 }
 
-.custom-modal-header {
-  background-color: #eee;
-  border-bottom: 1px solid #ccc;
-  border-radius: 10px 10px 0 0;
-  padding: 15px;
-}
-
-.custom-modal-body {
-  padding: 20px;
+.close-form-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
 }
