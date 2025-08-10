@@ -1,0 +1,27 @@
+import React, { useState } from 'react'
+import NoteForm from './components/NoteForm';
+import NoteItem from './components/NoteItem';
+import './App.css'
+
+function App() {
+  const [notes, setNotes] = useState([])
+
+  const addNote = (text) => {
+    const newNote = {id: Date.now(), text, date: new Date(), }
+    setNotes([...notes, newNote])
+  }
+
+  return (
+    <div className="app-container">
+      <h1>QuickNotes</h1>
+      <NoteForm addNote={addNote} />
+      <div className="notes-grid">
+        {notes.map((note) => (
+          <NoteItem key={note.id} note={note} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default App
