@@ -1,4 +1,5 @@
 import React, { useState} from "react"
+import TextareaAutosize from 'react-textarea-autosize';
 
 function NoteForm( {addNote}) {
     const [noteText, setNoteText ] = useState('')
@@ -22,12 +23,13 @@ function NoteForm( {addNote}) {
                 onChange={(e) => setNoteTitle(e.target.value)}
                 className="note-title-input"
             />
-            <textarea 
+            <TextareaAutosize 
+                className="note-text-area"
                 placeholder="Type you note here..."
                 value= {noteText}
                 onChange = { (e) => setNoteText(e.target.value)}
-                rows = "5"
-            ></textarea>
+                minRows = {5}
+            />
             <button type="submit">Add </button>
         </form>
     )
