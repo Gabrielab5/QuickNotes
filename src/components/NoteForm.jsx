@@ -1,22 +1,48 @@
-import React, { useState} from "react"
+import React, { useState, useEffect} from "react"
 import TextareaAutosize from 'react-textarea-autosize';
 
-function NoteForm( {addNote, initialNote, onUpdateNote, onClose }) {
-    const [noteText, setNoteText ] = useState(initialNote ? initialNote.text : '')
-    const [noteTitle, setNoteTitle] = useState(initialNote ? initialNote.title : '');
+function NoteForm( {addNote, initialNote, onUpdateNote, onClose , categories}) {
+    const [noteTitle, setNoteTitle] = useState('')
+    const [noteText, setNoteText] = useState('')
+    const [noteCategory, setNoteCategory] = useState('')
+
+    useEffect(() => {
+        if (initialNote) {
+            setNoteText(initialNote.text)
+            setNoteTitle(initialNote.title)
+            setNoteCategory(initialNote.category || '')
+        }
+       
+    }, [initialNote]) 
+
+    const resetForm = () => {
+        setNoteTitle('')
+        setNoteText('')
+        setNoteCategory('')
+    };
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-
-        if(initialNote){
-            onUpdateNote({...initialNote, title: noteTitle, text:noteText, updatedDate: new Date(),})
-        } else if(noteText.trim() || noteTitle.trim()) {
-            addNote(noteText, noteTitle)
+        e.preventDefault();
+        if (noteText.trim() === '' && noteTitle.trim() === '') {
+            alert('Add title and or text')
+            return;
         }
-           // Clear the form fields after submission only for new notes
-        if (!initialNote) {
-            setNoteTitle('');
-            setNoteText('');
+
+        if (noteCategory === '' || noteCategory === 'SELECT CATEGORY') {
+            alert('Choose category')
+            return;
+        }
+        if (initialNote) {
+            onUpdateNote({
+                ...initialNote,
+                title: noteTitle,
+                text: noteText,
+                category: noteCategory,
+                updatedDate: new Date(),
+            })
+        } else if (noteText.trim() || noteTitle.trim()) {
+            addNote(noteText, noteTitle, noteCategory)
+            resetForm()
         }
     }
 
@@ -39,6 +65,16 @@ function NoteForm( {addNote, initialNote, onUpdateNote, onClose }) {
                 onChange = { (e) => setNoteText(e.target.value)}
                 minRows = {5}
             />
+            <select value ={noteCategory} onChange = {(e) => setNoteCategory(e.target.value)} className="note-categort-select" >
+                <option value="" disabled>
+                    Select Category...
+                </option>
+                {categories && categories.map((cat) => (
+                <option key={cat.value} value={cat.value}>
+                  {cat.label}
+                </option>
+              ))}
+            </select>
             <button type="submit">{initialNote ? 'Update Note' : 'Add Note'} </button>
         </form>
     )

@@ -5,6 +5,17 @@ import NoteModal from './components/NoteModal'
 import './App.css'
 import { useDisclosure } from '@mantine/hooks'
 
+const CATEGORIES = [
+  { value: 'Personal', label: 'Personal', color: '#BDECB6' }, 
+  { value: 'Work', label: 'Work', color: '#A0D2EB' },      
+  { value: 'Study', label: 'Study', color: '#FCD79B' },       
+  { value: 'Other', label: 'Other', color: '#E9E9E9' },      
+  { value: 'Shopping', label: 'Shopping', color: '#B0A8F2' }, 
+  { value: 'Ideas', label: 'Ideas', color: '#E9A6A6' },     
+  { value: 'Health', label: 'Health', color: '#A8F2D0' },     
+  { value: 'Finance', label: 'Finance', color: '#D9D28B' },   
+]
+
 function App() {
   const [notes, setNotes] = useState(() => {
     const savedNotes = localStorage.getItem('notes')
@@ -18,8 +29,8 @@ function App() {
   }, [notes])
 
 
-  const addNote = (text, title) => {
-    const newNote = {id: Date.now(), title, text, date: new Date(), }
+  const addNote = (text, title, category) => {
+    const newNote = {id: Date.now(), title, text, date: new Date(), category:category }
     setNotes([...notes, newNote])
   }
 
@@ -44,7 +55,7 @@ function App() {
   return (
     <div className="app-container">
       <h1>QuickNotes</h1>
-      <NoteForm addNote={addNote} />
+      <NoteForm addNote={addNote} categories={CATEGORIES} />
       <div className="notes-grid">
         {notes.map((note) => (
           <NoteItem key={note.id} note={note} onDelete= { () => deleteNote(note.id)} onNoteClick={() => handleNoteClick(note)}/>
@@ -60,7 +71,7 @@ function App() {
         }}
         formComponent={
           selectedNote && (
-            <NoteForm key={selectedNote.id} initialNote={selectedNote} onUpdateNote={updateNote} onClose={close}/>
+            <NoteForm key={selectedNote.id} initialNote={selectedNote} onUpdateNote={updateNote} onClose={close} categories={CATEGORIES}/>
           )
         }
       />
