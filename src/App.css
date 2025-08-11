@@ -1,13 +1,14 @@
 
 .app-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  font-family: sans-serif;
+  font-family:  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1 {
   text-align: center;
+  font-weight: 800;
   color: #333;
 }
 
@@ -21,11 +22,12 @@ h1 {
   border-radius: 8px;
   background-color: #eec8fb;
   justify-content: center;
+  position: relative;
 }
 
 .note-form textarea {
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #cda2e6;
   border-radius: 4px;
   resize: vertical; 
   justify-content: center;
@@ -36,8 +38,9 @@ h1 {
   border: none;
   background-color: #6a1d72;
   color: white;
-  font-size: 16px;
+  font-size: 20px;
   border-radius: 4px;
+  font-weight: 600;
   cursor: pointer;
 }
 
@@ -66,6 +69,11 @@ h1 {
   line-height: 1.5;
 }
 
+.note:hover {
+  transform: translateY(-5px);
+  box-shadow: rgb(21, 34, 2);
+}
+
 .note small {
   display: block;
   text-align: right;
@@ -76,8 +84,22 @@ h1 {
 .note-footer{
   display: flex;
   justify-content: space-between;
-   align-items: center;
+  align-items: flex-end;
   margin-top: 10px;
+}
+
+.note-dates {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+}
+
+.note-dates small {
+  margin-bottom: 0;
+}
+
+.note-dates small + small {
+  margin-top: 5px; 
 }
 
 .delete-button{
@@ -86,7 +108,9 @@ h1 {
   align-self: self-end;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+  margin: 5px;
 }
 
 .delete-button:hover{
@@ -95,7 +119,7 @@ h1 {
 
 .note-title-input {
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #d18de6;
   border-radius: 4px;
   font-size: 16px;
   font-weight: bold;
@@ -109,21 +133,61 @@ h1 {
   resize:  none;
 }
 
-.custom-modal-wrapper {
+.note p {
+  margin: 0;
+  line-height: 1.5;
+  word-break: break-word; 
+}
+
+.custom-modal-body {
+  padding: 0;   
+}
+
+.note-form.in-modal {
+  padding: 20px;
+  border: none; 
+}
+
+.note-form button.in-modal {
   padding: 0;
-  border-radius: 8px;
-  overflow: hidden; 
-  border: 1px solid #ccc;
-  background-color: #eec8fb;
+  margin:0;
 }
 
 .close-form-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
+  top: 0px;
+  right: 0px;
+  background-color: #6a1d72; 
+  color: white;
   border: none;
-  font-size: 24px;
-  color: #333;
+  border-radius: 50%; 
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .note-form {
+    padding: 1rem;
+  }
+
+  .note-form button {
+    font-size: 1rem;
+  }
+
+  .notes-grid {
+    grid-template-columns: 1fr; 
+  }
+}
+

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import NoteForm from './components/NoteForm'
 import NoteItem from './components/NoteItem'
 import NoteModal from './components/NoteModal'
@@ -6,9 +6,17 @@ import './App.css'
 import { useDisclosure } from '@mantine/hooks'
 
 function App() {
-  const [notes, setNotes] = useState([])
-  const [opened, { open, close }] = useDisclosure(false);
-  const [selectedNote, setSelectedNote] = useState(null);
+  const [notes, setNotes] = useState(() => {
+    const savedNotes = localStorage.getItem('notes')
+    return savedNotes ? JSON.parse(savedNotes ) : []
+  })
+  const [opened, { open, close }] = useDisclosure(false)
+  const [selectedNote, setSelectedNote] = useState(null)
+
+  useEffect(() => {
+    localStorage.setItem('notes', JSON.stringify(notes))
+  }, [notes])
+
 
   const addNote = (text, title) => {
     const newNote = {id: Date.now(), title, text, date: new Date(), }

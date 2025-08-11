@@ -10,8 +10,10 @@ function NoteItem({ note , onDelete, onNoteClick}) {
       {title && <h3>{title}</h3>} 
       <p>{text}</p>
       <div className= "note-footer">
-        <small>{formattedDate}</small>
+         <div className="note-dates">
+        <small>Created: {formattedDate}</small>
          {formattedUpdatedDate && <small>Updated: {formattedUpdatedDate}</small>}
+        </div>
         <button className="delete-button" onClick ={(e) => { e.stopPropagation(); onDelete(); }}>x</button>
       </div>
     </div>

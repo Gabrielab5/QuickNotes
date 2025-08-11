@@ -20,8 +20,10 @@ function NoteForm( {addNote, initialNote, onUpdateNote, onClose }) {
         }
     }
 
+    const formClass = initialNote ? "note-form in-modal" : "note-form";
+
     return (
-        <form onSubmit={handleSubmit} className="note-form">
+        <form onSubmit={handleSubmit} className={formClass}>
         {initialNote && <button className="close-form-button" onClick={onClose}>&times;</button>}
             <input
                 type="text"
