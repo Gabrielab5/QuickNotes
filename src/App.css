@@ -1,6 +1,9 @@
 
 .app-container {
   max-width: 1200px;
+  min-height:1200px;
+  background-color: #f5eefa;
+  border-radius: 5%;
   margin: 0 auto;
   padding: 20px;
   font-family:  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -185,6 +188,47 @@ h1 {
   letter-spacing: 0.5px;
 }
 
+.filter-controls {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center
+}
+
+.category-buttons button {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.category-buttons button:hover {
+  background-color: #e0e0e0;
+}
+
+.category-buttons button.active {
+  background-color: #6a1d72;
+  color: white;
+  border-color: #6a1d72;
+}
 
 .note-category::before {
   content: '';
@@ -215,6 +259,14 @@ h1 {
 
   .notes-grid {
     grid-template-columns: 1fr; 
+  }
+
+  .category-buttons {
+    flex-direction: column;
+  }
+
+  .category-buttons button {
+    width: 100%;
   }
 }
 

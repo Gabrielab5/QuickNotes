@@ -23,6 +23,8 @@ function App() {
   })
   const [opened, { open, close }] = useDisclosure(false)
   const [selectedNote, setSelectedNote] = useState(null)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filterCategory, setFilterCategory] = useState('All')
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes))
@@ -52,12 +54,45 @@ function App() {
     open()
   }
 
+  const filteredNotes = notes.filter(note => {
+    const matchesSearch = note.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    note.text.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesCategory = filterCategory === 'All' || note.category === filterCategory
+    return matchesSearch && matchesCategory
+  })
+
   return (
     <div className="app-container">
       <h1>QuickNotes</h1>
+      <div className="filter-controls">
+        <input 
+          type="text" 
+          placeholder="Search notes..." 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
+        <div className="category-buttons">
+          <button 
+            onClick={() => setFilterCategory('All')} 
+            className={filterCategory === 'All' ? 'active' : ''}
+          >
+            All
+          </button>
+          {CATEGORIES.map(cat => (
+            <button 
+              key={cat.value} 
+              onClick={() => setFilterCategory(cat.value)}
+              className={filterCategory === cat.value ? 'active' : ''}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+      </div>
       <NoteForm addNote={addNote} categories={CATEGORIES} />
       <div className="notes-grid">
-        {notes.map((note) => (
+        {filteredNotes.map((note) => (
           <NoteItem key={note.id} note={note} onDelete= { () => deleteNote(note.id)} onNoteClick={() => handleNoteClick(note)}/>
         ))}
       </div>
