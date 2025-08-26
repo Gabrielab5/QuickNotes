@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from '@mantine/core';
 
-function NoteModal({ opened, onClose, note, formComponent , classNames}) {
+function NoteModal({ opened, onClose, note, formComponent , classNames, modalColor}) {
   if (!note) return null; 
 
   return (
@@ -14,6 +14,11 @@ function NoteModal({ opened, onClose, note, formComponent , classNames}) {
       classNames={classNames}
       padding= {0}
       withCloseButton={false}
+      style={{
+        backgroundColor: modalColor,
+        border: `1px solid ${modalColor}`, 
+        borderRadius: '8px',
+      }}
     >
      {formComponent}
     </Modal>

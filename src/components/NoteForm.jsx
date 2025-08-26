@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from "react"
 import TextareaAutosize from 'react-textarea-autosize';
+import { Select } from '@mantine/core'
 
 function NoteForm( {addNote, initialNote, onUpdateNote, onClose , categories}) {
     const [noteTitle, setNoteTitle] = useState('')
@@ -48,6 +49,16 @@ function NoteForm( {addNote, initialNote, onUpdateNote, onClose , categories}) {
 
     const formClass = initialNote ? "note-form in-modal" : "note-form";
 
+    const selectData = categories.map((cat) => ({
+    value: cat.value,
+    label: (
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <span style={{ marginRight: '8px' }}>{cat.icon}</span>
+        <span>{cat.label}</span>
+      </div>
+    ),
+    }))
+
     return (
         <form onSubmit={handleSubmit} className={formClass}>
         {initialNote && <button className="close-form-button" onClick={onClose}>&times;</button>}
@@ -65,13 +76,14 @@ function NoteForm( {addNote, initialNote, onUpdateNote, onClose , categories}) {
                 onChange = { (e) => setNoteText(e.target.value)}
                 minRows = {5}
             />
-            <select value ={noteCategory} onChange = {(e) => setNoteCategory(e.target.value)} className="note-categort-select" >
+            <select data={selectData} value ={noteCategory} onChange = {(e) => setNoteCategory(e.target.value)} className="note-category-select" >
                 <option value="" disabled>
                     Select Category...
                 </option>
                 {categories && categories.map((cat) => (
                 <option key={cat.value} value={cat.value}>
-                  {cat.label}
+                    <span style={{ marginRight: '8px' }}>{cat.icon}</span>
+                    {cat.label}
                 </option>
               ))}
             </select>
